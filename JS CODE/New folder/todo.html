@@ -1,0 +1,79 @@
+<html>
+  <head></head>
+  <body>
+
+    <input type = "text"  id="todo-textbox" >         
+    <input type ="date"  id = " date-picker">        
+
+    <button onclick="addtodo()"> Add to do  </button>  
+
+    <div id = 'todo-listdiv'></div>
+
+    <script>  
+    document.title = 'MY to do'
+
+    let list = 
+    [ { title : 'washing cars ' , duedate : '10-22-2302' ,id :1} 
+    , { title: 'go shopping ' , duedate :' 10-22-4342 ' , id :2} ,
+    { title: 'drink coffee' ,  duedate :'10-23-2320 ' ,id :3 }] ;
+
+
+    render();
+
+    function addtodo() {
+      let textbox = document.getElementById('todo-textbox'); 
+      let newtodo = textbox.value ; 
+
+     let datepic = document.getElementById(' date-picker') 
+     let date = datepic.value ;
+
+     const idnum = new Date().getTime() ;
+
+     list.push({title : newtodo , duedate :date  , id : idnum});
+
+      render();
+      
+    }
+
+
+    function delatetodo (event) {  
+
+      const delatebutt = event.target ; 
+      const idTodelate = delatebutt.id ;  
+
+      list = list.filter(function (todo) {
+          
+          if (todo.id === idTodelate) {
+            return false;
+          } else {
+            return true;
+          }
+        });
+          render ();
+    }
+
+   function render () { 
+
+    document.getElementById('todo-listdiv').innerHTML = '';
+
+    list.forEach(function(todo) {
+      let elemnt = document.createElement('div') ;
+      elemnt.innerText =  todo.title + ' ' + todo.duedate; 
+
+      const delatebutt = document.createElement('button') ;
+      delatebutt.innerText = 'Delate' ; 
+      delatebutt.style = 'margin-left :10px'; 
+
+      delatebutt .onclick = delatetodo  ;
+      delatebutt.id = list.id ;
+
+      elemnt.appendChild(delatebutt); 
+
+      let todolist = document.getElementById('todo-listdiv') ;
+      todolist.appendChild(elemnt) ;
+    });
+    } 
+    </script>
+  </body> 
+  
+</html>
